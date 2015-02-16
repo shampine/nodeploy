@@ -15,7 +15,7 @@ while getopts "p:b:h:" flag
   esac
 done
 
-if[[ ! -z ${hash+x} ]]; then
+if [[ ! -z "$hash" ]]; then
 
   # Hard rest on force push
   git -C $path fetch --all --tags
