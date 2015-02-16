@@ -18,7 +18,7 @@ gith({ repo: config.repo }).on('all', function(payload) {
       });
 
     } else {
-      command = './bin/pull.sh -p ' + config.path;
+      command = './bin/pull.sh -p ' + config.path + ' -b ' + config.branch;
       exec(command, function(error, stdout, stderr) {
 
         console.log('error: ' + error);
