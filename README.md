@@ -8,7 +8,9 @@ A GitHub webhook project that invokes a shell script for deployments. Uses [gith
 - Move `config.sample.js` to `config.js`  
 - Edit all options to meet environment requirements
 - Configure a webhook in your GitHub repository settings
-- Run `npm start` or `screen npm start` in the root to start the deployment listener
+- Run `npm start` in the root to start the deployment listener  
+- Optional: you can run this in a screen as `screen npm start` or using forever `forever start /path/to/nodeploy/`  
+
 
 ## issues
 
