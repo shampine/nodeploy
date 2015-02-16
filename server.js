@@ -19,6 +19,10 @@ gith({ repo: config.repo }).on('all', function(payload) {
     } else {
       exec('./bin/pull.sh -p ' + config.path, function(error, stdout, stderr){
 
+        console.log('error: ' + error);
+        console.log('stdout: ' + stdout);
+        console.log('stderr: ' + stderr);
+
       });
 
     }
