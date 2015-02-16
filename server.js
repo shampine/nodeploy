@@ -3,7 +3,6 @@ var config = require('./config.js'),
     gith   = require('gith').create(config.port),
     exec   = require('child_process').exec;
 
-
 console.log('Now listening on port ' + config.port);
 
 gith({ repo: config.repo }).on('all', function(payload) {
@@ -18,11 +17,11 @@ gith({ repo: config.repo }).on('all', function(payload) {
       });
 
     } else {
-      exec('./bin/pull.sh', function(error, stdout, stderr){
+      exec('./bin/pull.sh -p ' + config.path, function(error, stdout, stderr){
 
       });
 
     }
-  } 
+  }
 
 });

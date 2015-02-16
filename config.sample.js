@@ -1,7 +1,8 @@
 var config = {
+  "port": 9001,
   "repo": "org/project",
   "branch": "master",
-  "port": 9001
+  "path": "/path/to/repo"
 };
 
 module.exports = config;
