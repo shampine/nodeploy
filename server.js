@@ -6,6 +6,7 @@ var config = require('./config.js'),
 console.log('Now listening on port ' + config.port);
 
 gith({ repo: config.repo }).on('all', function(payload) {
+  var command;
 
   // We are only running a deploy on the config branch
   if(config.branch === payload.branch) {
@@ -17,7 +18,8 @@ gith({ repo: config.repo }).on('all', function(payload) {
       });
 
     } else {
-      exec('./bin/pull.sh -p ' + config.path, function(error, stdout, stderr){
+      command = './bin/pull.sh -p ' + config.path;
+      exec(command, function(error, stdout, stderr) {
 
         console.log('error: ' + error);
         console.log('stdout: ' + stdout);
