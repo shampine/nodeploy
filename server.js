@@ -1,7 +1,13 @@
-var gith = require('gith').create(9001);
-var execFile = require('child_process').execFile;
-var config = require('./config.js');
+var gith     = require('gith').create(9001),
+    execFile = require('child_process').execFile,
+    config   = require('./config.js');
+
+console.log('Server warming up..');
 
 gith({
-  repo: 'todo//add config'
+  repo: config.repo
+}).on('all', function(payload) {
+
+  console.log(payload);
+
 });
