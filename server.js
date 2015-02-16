@@ -9,15 +9,11 @@ gith({ repo: config.repo }).on('all', function(payload) {
 
   // We are only running a deploy on the config branch
   if(config.branch === payload.branch) {
+    var hash = payload.forced ? payload.after : false;
 
-    // Handles a force push by doing a git reset --hard COMMIT
-    if(true === payload.forced) {
-      doDeploy(payload.after);
-    } else {
-      doDeploy(false);
-    }
+    doDeploy(hash);
   } else {
-    console.log('Push event received on different branch set in config.')
+    console.log('Push event received on different branch than set in config.')
   }
 
 });
