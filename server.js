@@ -4,7 +4,7 @@ var config = require('./config.js'),
     exec   = require('child_process').exec;
 
 
-console.log('Now listening on port' + config.port);
+console.log('Now listening on port ' + config.port);
 
 gith({ repo: config.repo }).on('all', function(payload) {
 
@@ -13,11 +13,14 @@ gith({ repo: config.repo }).on('all', function(payload) {
 
     // Handles a force push by doing a git reset --hard COMMIT
     if(true === payload.forced) {
-      exec('./bin/reset.sh', function(error, stdout, stderr) )
+      exec('./bin/reset.sh', function(error, stdout, stderr) {
+
+      });
 
     } else {
+      exec('./bin/pull.sh', function(error, stdout, stderr){
 
-
+      });
 
     }
   } 
