@@ -2,14 +2,13 @@ var config = require('./config.js'),
     moment = require('moment'),
     gith   = require('gith').create(config.port),
     exec   = require('child_process').exec,
-    fs     = requite('fs');
+    fs     = require('fs');
 
-logMessages('No[de]ploy now listening on port ' + config.port);
-logMessages('Thanks for everything Carlo.');
+logMessages('No[de]ploy now listening on port ' + config.port + '. Thanks for everything Carlo.');
 
 gith({ repo: config.repo }).on('all', function(payload) {
 
-  for(var i=0; i < config.length, i++) {
+  for(var i=0; i < config.length; i++) {
     if(payload.repository.full_name === config[i].repo) {
       repo = config[i];
     } else {
