@@ -1,16 +1,38 @@
 #! /bin/bash
 
-while getopts "p:b:h:" flag
+doSubmodules () {
+  git submodule foreach git fetch --all --tags
+  git submodule update --init
+}
+
+doComposer () {
+  composer install
+}
+
+doNode () {
+  npm install
+}
+
+while getopts "p:b:h:s n c" flag
   do
     case $flag in
-      p )
-        path=$OPTARG
-        ;;
       b )
         branch=$OPTARG
         ;;
+      c )
+        composer=true
+        ;;
       h )
         hash=$OPTARG
+        ;;
+      n )
+        node=true
+        ;;
+      p )
+        path=$OPTARG
+        ;;
+      s )
+        submodules=true
         ;;
   esac
 done
@@ -29,4 +51,16 @@ else
   git -C $path fetch --all --tags
   git -C $path merge origin/$branch
 
+fi
+
+if [[ -z "$submodules" ]]; then
+  doSubmodules
+fi
+
+if [[ -z "$node" ]]; then
+  doNode
+fi
+
+if [[ -z "$composer" ]]; then
+  doComposer
 fi

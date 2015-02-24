@@ -1,5 +1,6 @@
 var config = {
   "port": 9001,
+  "logs": false,
   "repositories": [
     {
       "repo": "org/project",
