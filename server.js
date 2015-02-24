@@ -1,10 +1,11 @@
 var config = require('./config.js'),
     moment = require('moment'),
     gith   = require('gith').create(config.port),
-    exec   = require('child_process').exec;
+    exec   = require('child_process').exec,
+    fs     = requite('fs');
 
-console.log('No[de]ploy now listening on port ' + config.port);
-console.log('Thanks for everything Carlo.');
+logMessages('No[de]ploy now listening on port ' + config.port);
+logMessages('Thanks for everything Carlo.');
 
 gith({ repo: config.repo }).on('all', function(payload) {
 
@@ -12,7 +13,7 @@ gith({ repo: config.repo }).on('all', function(payload) {
     if(payload.repository.full_name === config[i].repo) {
       repo = config[i];
     } else {
-      console.log('No matching project found.');
+      logMessages('No matching project found.')
       return;
     }
   }
@@ -22,7 +23,7 @@ gith({ repo: config.repo }).on('all', function(payload) {
     var hash = payload.forced ? payload.after : false;
     doDeploy(hash);
   } else {
-    console.log('Push event received on different branch than set in config.')
+    logMessages('Push event received on different branch than set in config.');
   }
 
 });
@@ -41,12 +42,23 @@ function doDeploy(hash) {
   if(repo.composer) command += ' -c';
 
   exec(command, function(error, stdout, stderr) {
-    console.log('error: ' + error);
-    console.log('stdout: ' + stdout);
-    console.log('stderr: ' + stderr);
+    message = [
+      '----- Webhook fired -----',
+      time,
+      'Error: ' + error,
+      'Stdout: ' + stdout,
+      'Stderr: ' + stderr,
+    ].join("\n");
+    logMessages(message);
   });
 }
 
-function logMessages() {
-  // todo
+function logMessages(message) {
+  // todo .. hacky at best right now
+  if(config.logs) {
+    fs.writeFile('./nodeploy_log', message, function(err) {
+      if(err) console.log(err);
+    });
+  }
+  console.log(message);
 }
